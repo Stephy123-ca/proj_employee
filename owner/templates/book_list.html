@@ -1,0 +1,39 @@
+{%extends 'base.html'%}
+
+{%block body_block%}
+
+ <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+
+            <table class="table">
+                <tr>
+                    <td>BookName</td>
+                    <td>Author</td>
+                    <td>price</td>
+                    <td>copies</td>
+                </tr>
+
+                {%for book in products %}
+
+                    <tr>
+                        <td>{{book.book_name}}</td>
+                        <td>{{book.author}}</td>
+                        <td>{{book.price}}</td>
+                        <td>{{book.copies}}</td>
+                        <td>
+                            <a href="{%url 'bookdetail' book.id%}">view</a>
+
+                             <a href="{%url 'editbook' book.id%}">Edit</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+<!--            django template language-->
+
+            </table>
+        </div>
+        <div class="col-4"></div>
+    </div>
+
+
+{%endblock%}
