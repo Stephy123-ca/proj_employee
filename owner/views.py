@@ -4,7 +4,17 @@ from owner import  forms
 from owner.models import  Book
 from django.contrib.auth import authenticate,login,logout
 from owner.decorators import signin_required
-from django.views.generic import View
+from django.views.generic import View,ListView,TemplateView,CreateView,DetailView,UpdateView
+from django.urls import reverse_lazy
+from django.contrib.auth.models import User
+from django.utils.decorators import method_decorator
+
+
+#ListView rednder list all objects
+#TemplateView
+#DetailView
+#UpdateView
+#DeleteView
 
 # Create your views here.
 
@@ -28,10 +38,11 @@ from django.views.generic import View
 # def owner_home(request):
 #
 #     return render(request, "owner_home.html")
-class OwnerHome(View):
+@method_decorator(signin_required,name="dispatch")
+class OwnerHome(TemplateView):
     template_name="owner_home.html"
-    def get(self,request,**kwargs):
-        return render(request,self.template_name)
+
+
 #
 # @signin_required
 # def add_book(request,*args,**kwargs):
@@ -54,25 +65,27 @@ class OwnerHome(View):
 #
 #
 #     return render(request, "add_book.html",context)
+@method_decorator(signin_required,name="dispatch")
 
-class AddBook(View):
+class AddBook(CreateView):
     model=Book
     template_name="add_book.html"
     form_class=forms.BookForm
-    context={}
-    def get(self,request,*args,**kwargs):
-        form=self.form_class()
-        self.context["form"]=form
-        return render(request,self.template_name,self.context)
-
-    def post(self,request,*args,**kwargs):
-        form=self.form_class(request.POST,files=request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect("listallbooks")
-        else:
-            self.context["form"]=form
-            return render(request,self.template_name,self.context)
+    success_url = reverse_lazy("listallbooks")
+    # context={}
+    # def get(self,request,*args,**kwargs):
+    #     form=self.form_class()
+    #     self.context["form"]=form
+    #     return render(request,self.template_name,self.context)
+    #
+    # def post(self,request,*args,**kwargs):
+    #     form=self.form_class(request.POST,files=request.FILES)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect("listallbooks")
+    #     else:
+    #         self.context["form"]=form
+    #         return render(request,self.template_name,self.context)
 
 
 #
@@ -81,14 +94,17 @@ class AddBook(View):
 #     context = {"products": books}
 #
 #     return render(request, "book_list.html", context)
-class AllBooks(View):
+@method_decorator(signin_required,name="dispatch")
+class AllBooks(ListView):
     model=Book
     template_name="book_list.html"
-    context={}
-    def get(self,request,*args,**kwargs):
-        books=self.model.objects.all()
-        self.context["products"]=books
-        return render(request,self.template_name,self.context)
+    context_object_name = "products"
+
+
+    # def get(self,request,*args,**kwargs):
+    #     books=self.model.objects.all()
+    #     self.context["products"]=books
+    #     return render(request,self.template_name,self.context)
 
 # def book_details(request,*args,**kwargs):
 #     print(args)
@@ -97,15 +113,18 @@ class AllBooks(View):
 #
 #     context = {"book": products}
 #     return render(request, "book_detail.html", context)
-class BookDetail(View):
+@method_decorator(signin_required,name="dispatch")
+class BookDetail(DetailView):
     model=Book
-    context={}
+
     template_name="book_detail.html"
-    def get(self,request,*args,**kwargs):
-        id=kwargs["id"]
-        book=self.model.objects.get(id=id)
-        self.context["book"]=book
-        return render(request,self.template_name,self.context)
+    context_object_name = "book"
+    pk_url_kwarg = "id"
+    # def get(self,request,*args,**kwargs):
+    #     id=kwargs["id"]
+    #     book=self.model.objects.get(id=id)
+    #     self.context["book"]=book
+    #     return render(request,self.template_name,self.context)
 
 #
 # def change_book(request,*args,**kwargs):
@@ -131,69 +150,101 @@ class BookDetail(View):
 #     return render(request,"edit_book.html",conetxt)
 
 # books(book_name,author,copies,price)
-
-class BookUpdate(View):
+@method_decorator(signin_required,name="dispatch")
+class BookUpdate(UpdateView):
     template_name="edit_book.html"
     model=Book
-    context={}
+    pk_url_kwarg = "id"
+    success_url = reverse_lazy("listallbooks")
+
     form_class=forms.BookForm
 
-    def get(self,request,*args,**kwargs):
-        id=kwargs["id"]
-        book=self.model.objects.get(id=id)
-        form=self.form_class(instance=book)
-        self.context["form"]=form
-        return render(request,self.template_name,self.context)
+    # def get(self,request,*args,**kwargs):
+    #     id=kwargs["id"]
+    #     book=self.model.objects.get(id=id)
+    #     form=self.form_class(instance=book)
+    #     self.context["form"]=form
+    #     return render(request,self.template_name,self.context)
+    # def post(self,request,*args,**kwargs):
+    #     id = kwargs["id"]
+    #     book = self.model.objects.get(id=id)
+    #     form=self.form_class(request.POST,instance=book,files=request.FILES)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect("listallbooks")
+    #     else:
+    #         self.context["form"]=form
+    #         return render(request, self.template_name, self.context)
+    #
+
+
+class Registration(CreateView):
+    model=User
+    template_name = "register.html"
+    form_class = forms.UserRegistrationForm
+    success_url = reverse_lazy("signin")
+
+
+#
+# def user_registration(request):
+#     form=forms.UserRegistrationForm()
+#     context={"form":form}
+#     if request.method=="POST":
+#         form=forms.UserRegistrationForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             print("user hasbeen crerated")
+#             return render(request,"login.html")
+#         else:
+#             context={"form":form}
+#             return render(request, "register.html", context)
+#
+#     return render(request,"register.html",context)
+
+
+class SignIn(TemplateView):
+    template_name = "login.html"
+    context = {}
+
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        form=forms.SigninForm()
+        context["form"]=form
+
+        return context
     def post(self,request,*args,**kwargs):
-        id = kwargs["id"]
-        book = self.model.objects.get(id=id)
-        form=self.form_class(request.POST,instance=book,files=request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect("listallbooks")
-        else:
-            self.context["form"]=form
-            return render(request, self.template_name, self.context)
-
-
-
-
-
-
-def user_registration(request):
-    form=forms.UserRegistrationForm()
-    context={"form":form}
-    if request.method=="POST":
-        form=forms.UserRegistrationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            print("user hasbeen crerated")
-            return render(request,"login.html")
-        else:
-            context={"form":form}
-            return render(request, "register.html", context)
-
-    return render(request,"register.html",context)
-
-def signin(request):
-    form=forms.SigninForm()
-    context={"form":form}
-    if request.method=="POST":
-
         form=forms.SigninForm(request.POST)
         if form.is_valid():
             u_name=form.cleaned_data["username"]
             pwd=form.cleaned_data["password"]
             user=authenticate(request,username=u_name,password=pwd)
             if user:
-                login(request,user)
                 return redirect("ownerindex")
             else:
-                return render(request, "login.html", context)
+                self.context["form"]=form
+                return render(request,self.template_name,self.context)
 
-    return render(request,"login.html",context)
 
+#
+# def signin(request):
+#     form=forms.SigninForm()
+#     context={"form":form}
+#     if request.method=="POST":
+#
+#         form=forms.SigninForm(request.POST)
+#         if form.is_valid():
+#             u_name=form.cleaned_data["username"]
+#             pwd=form.cleaned_data["password"]
+#             user=authenticate(request,username=u_name,password=pwd)
+#             if user:
+#                 login(request,user)
+#                 return redirect("ownerindex")
+#             else:
+#                 return render(request, "login.html", context)
+#
+#     return render(request,"login.html",context)
 
+@signin_required
 def signout(requset,*args,**kwargs):
     logout(requset)
     return redirect("signin")
