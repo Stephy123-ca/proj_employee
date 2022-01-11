@@ -9,7 +9,8 @@
     <div class="row">
         <div class="col-2"></div>
         <div class="col-8">
-            <form action="">
+            <form action="{%url 'custreg' %}" method="post">
+                {%csrf_token%}
                 {{user_form.as_p}}
                 {{profile_form.as_p}}
                 <input type="submit" value="add">

@@ -13,7 +13,7 @@ class CustomerHome(View):
         return render(request,self.template_name,self.context)
 
 
-class CustomeRegistration(TemplateView):
+class CustomerRegistration(TemplateView):
     template_name = "cust_reg.html"
 
     def get_context_data(self, **kwargs):
@@ -23,4 +23,23 @@ class CustomeRegistration(TemplateView):
         context["user_form"]=user_form
         context["profile_form"]=profile_form
         return context
+    def post(self,request,*args,**kwargs):
+        u_form=UserRegistrationForm(request.POST)
+        p_form=UserProfileForm(request.POST)
+        if u_form.is_valid() & p_form.is_valid():
+            user=u_form.save()
+            profile=p_form.save(commit=False)
+            profile.user=user
+            profile.save()
+            return redirect("signin")
+        else:
+            u_form = UserRegistrationForm(request.POST)
+            p_form = UserProfileForm(request.POST)
+            context={}
+            context["user_form"] = u_form
+            context["profile_form"] = p_form
+            return render(request,"cust_reg.html",context)
+
+
+
 
