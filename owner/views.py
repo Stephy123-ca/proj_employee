@@ -219,8 +219,15 @@ class SignIn(TemplateView):
             pwd=form.cleaned_data["password"]
             user=authenticate(request,username=u_name,password=pwd)
             if user:
-                return redirect("ownerindex")
+                login(request,user)
+                if user.is_superuser:
+                    return redirect("ownerindex")
+                else:
+                    return redirect("customerhome")
+
+
             else:
+                print("invalid")
                 self.context["form"]=form
                 return render(request,self.template_name,self.context)
 
