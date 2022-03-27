@@ -1,19 +1,22 @@
 from django import forms
 from django.forms import ModelForm
-from owner.models import Book
+from owner.models import Employees
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from Employee.models import UserProfile
 
-class BookForm(ModelForm):
+class EmployeeForm(ModelForm):
     class Meta:
-        model=Book
-        # fields=["book_name","copies","author","price"]
+        model=Employees
+        # fields=["Employee_name","Email","password","phone","address"]
         fields="__all__"
         widgets={
-            "book_name":forms.TextInput(attrs={"class":"form-control"}),
-            "author":forms.TextInput(attrs={'class':"form-control"}),
-            "copies":forms.NumberInput(attrs={"class":"form-control"}),
-            "price":forms.NumberInput(attrs={"class":"form-control"})
+            "Employee_name":forms.TextInput(attrs={"class":"form-control"}),
+            "Email":forms.EmailInput(attrs={'class':"form-control"}),
+            "password":forms.PasswordInput(attrs={"class":"form-control"}),
+            "phone":forms.TextInput(attrs={"class": "form-control"}),
+            "address":forms.TextInput(attrs={"class": "form-control"}),
+
         }
 
 
@@ -54,15 +57,40 @@ class BookForm(ModelForm):
 #
 #
 
-
 class UserRegistrationForm(UserCreationForm):
     class Meta:
         model=User
-        fields=["first_name","last_name","email","username","password1","password2"]
+        fields=["email","username","password1","password2"]
+        widgets={
+            "email":forms.EmailInput(attrs={'class':"form-control"}),
+            "username":forms.TextInput(attrs={"class": "form-control"}),
+            "password1":forms.CharField(max_length=15,widget=(forms.PasswordInput(attrs={"class":"form-control","placeholder":"type password"}))),
+            "password2": forms.TextInput(attrs={"class": "form-control"}),
+        }
+
+
+
 
 
 class SigninForm(forms.Form):
     username=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control"}))
     password=forms.CharField(widget=forms.PasswordInput(attrs={"class":"form-control"}))
+
+
+
+
+
+# class UserRegistrationForm(UserCreationForm):
+#     class Meta:
+#         model=Employees
+#         fields="__all__"
+#         widgets = {
+#             "Employee_name": forms.TextInput(attrs={"class": "form-control"}),
+#             "Email": forms.EmailInput(attrs={'class': "form-control"}),
+#             "password": forms.PasswordInput(attrs={"class": "form-control"}),
+#             "phone": forms.TextInput(attrs={"class": "form-control"}),
+#             "address": forms.TextInput(attrs={"class": "form-control"}),
+#
+#         }
 
 

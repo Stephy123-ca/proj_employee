@@ -1,13 +1,17 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from owner import  forms
-from owner.models import  Book
+from owner.models import  Employees
 from django.contrib.auth import authenticate,login,logout
 from owner.decorators import signin_required
-from django.views.generic import View,ListView,TemplateView,CreateView,DetailView,UpdateView
+from django.views.generic import View,ListView,TemplateView,CreateView,DetailView,UpdateView,DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from django.utils.decorators import method_decorator
+from owner.forms import UserRegistrationForm
+from owner.decorators import signin_required
+from Employee.forms import UserProfileForm
+from Employee.models import UserProfile
 
 
 #ListView rednder list all objects
@@ -33,11 +37,39 @@ from django.utils.decorators import method_decorator
 #
 #
 # ]
+@method_decorator(signin_required,name="dispatch")
+class OwnerRegistration(TemplateView):
+    template_name = "owner_reg.html"
+
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        user_form=UserRegistrationForm()
+        profile_form=UserProfileForm()
+        context["user_form"]=user_form
+        context["profile_form"]=profile_form
+        return context
+    def post(self,request,*args,**kwargs):
+        u_form=UserRegistrationForm(request.POST)
+        p_form=UserProfileForm(request.POST)
+        if u_form.is_valid() & p_form.is_valid():
+            user=u_form.save()
+            profile=p_form.save(commit=False)
+            profile.user=user
+            profile.save()
+            return redirect("listallbooks")
+        else:
+            u_form = UserRegistrationForm(request.POST)
+            p_form = UserProfileForm(request.POST)
+            context={}
+            context["user_form"] = u_form
+            context["profile_form"] = p_form
+            return render(request,"owner_reg.html",context)
 
 # @signin_required
 # def owner_home(request):
 #
 #     return render(request, "owner_home.html")
+
 @method_decorator(signin_required,name="dispatch")
 class OwnerHome(TemplateView):
     template_name="owner_home.html"
@@ -61,18 +93,18 @@ class OwnerHome(TemplateView):
 #             # book.save()
 #             return  redirect("listallbooks")
 #         else:
-#             return render(request,"add_book.html",{"form":form})
+#             return render(request,"owner_reg.html",{"form":form})
 #
 #
-#     return render(request, "add_book.html",context)
+#     return render(request, "owner_reg.html",context)
 @method_decorator(signin_required,name="dispatch")
 
-class AddBook(CreateView):
-    model=Book
-    template_name="add_book.html"
-    form_class=forms.BookForm
-    success_url = reverse_lazy("listallbooks")
-    # context={}
+# class AddBook(CreateView):
+#     model=Employees
+#     template_name="owner_reg.html"
+#     form_class=forms.EmployeeForm
+#     success_url = reverse_lazy("listallbooks")
+#     # context={}
     # def get(self,request,*args,**kwargs):
     #     form=self.form_class()
     #     self.context["form"]=form
@@ -96,7 +128,7 @@ class AddBook(CreateView):
 #     return render(request, "book_list.html", context)
 @method_decorator(signin_required,name="dispatch")
 class AllBooks(ListView):
-    model=Book
+    model=UserProfile
     template_name="book_list.html"
     context_object_name = "products"
 
@@ -115,7 +147,7 @@ class AllBooks(ListView):
 #     return render(request, "book_detail.html", context)
 @method_decorator(signin_required,name="dispatch")
 class BookDetail(DetailView):
-    model=Book
+    model=Employees
 
     template_name="book_detail.html"
     context_object_name = "book"
@@ -153,11 +185,11 @@ class BookDetail(DetailView):
 @method_decorator(signin_required,name="dispatch")
 class BookUpdate(UpdateView):
     template_name="edit_book.html"
-    model=Book
+    model=Employees
     pk_url_kwarg = "id"
     success_url = reverse_lazy("listallbooks")
 
-    form_class=forms.BookForm
+    form_class=forms.EmployeeForm
 
     # def get(self,request,*args,**kwargs):
     #     id=kwargs["id"]
@@ -258,3 +290,11 @@ def signout(requset,*args,**kwargs):
 
 
 
+# @method_decorator(signin_required,name="dispatch")
+# class Delete_emp(DeleteView):
+#     template_name="book_list.html"
+#     model=Employees
+#     pk_url_kwarg = "id"
+#     success_url = reverse_lazy("listallbooks")
+#
+#     form_class=forms.EmployeeForm

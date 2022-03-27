@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0c26040b-30e0-4260-9c7e-cd0a5ccf7e56" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../customer/static/assets/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../customer/static/css/styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../customer/static/js/scripts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../customer/templates/cbase.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/BookLibrary.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/BookLibrary.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/../customer/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../customer/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/templates/cut_home.html" beforeDir="false" afterPath="$PROJECT_DIR$/../customer/templates/cut_home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../customer/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../customer/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../customer/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/../db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../images/the-alchemist-a-graphic-novel.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/../media/images/the-alchemist-a-graphic-novel.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../owner/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/../owner/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../owner/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/../owner/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../owner/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../owner/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../owner/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/../owner/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../owner/templates/book_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/../owner/templates/book_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../owner/templates/book_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/../owner/templates/book_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../owner/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/../owner/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../owner/templates/owner_home.html" beforeDir="false" afterPath="$PROJECT_DIR$/../owner/templates/owner_home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../owner/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../owner/views.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="26uzdU2rNJS7YHt0VFLHvi6p661" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0c26040b-30e0-4260-9c7e-cd0a5ccf7e56" name="Default Changelist" comment="" />
+      <created>1648288347503</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1648288347503</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
