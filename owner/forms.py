@@ -65,7 +65,7 @@ class UserRegistrationForm(UserCreationForm):
             "email":forms.EmailInput(attrs={'class':"form-control"}),
             "username":forms.TextInput(attrs={"class": "form-control"}),
             "password1":forms.CharField(max_length=15,widget=(forms.PasswordInput(attrs={"class":"form-control","placeholder":"type password"}))),
-            "password2": forms.TextInput(attrs={"class": "form-control"}),
+            "password2": forms.CharField(max_length=15, widget=(forms.PasswordInput(attrs={"class": "form-control", "placeholder": "type password"}))),
         }
 
 

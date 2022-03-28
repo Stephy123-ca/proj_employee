@@ -5,20 +5,14 @@
 <div class="row">
     <div class="col-2"></div>
     <div class="col-8 mt-5">
-        <form action="{%url 'ownerreg' %}" method="post">
+        <form action="{%url 'ownerreg' %}" method="post" enctype="multipart/form-data">
             {%csrf_token%}
             {% for field in user_form%}
             <div class="wrapper">
                 {{field.label_tag}}{{field}}
             </div>
-            {%endfor%}
-            {% for field in profile_form%}
-            <div class="wrapper">
-                {{field.label_tag}}{{field}}
-
-            </div>
-            {%endfor%}
-
+      {%endfor%}
+{{profile_form.as_p}}
             <input type="submit" value="add">
 
 

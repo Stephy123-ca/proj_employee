@@ -1,17 +1,16 @@
 from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView,ListView
-from owner.models import Employees
+from Employee.models import UserProfile
 from django.contrib.auth import authenticate,login,logout
 from owner.forms import UserRegistrationForm
 from owner.decorators import signin_required
 from Employee.forms import UserProfileForm
-from owner import views
 
 class Index(TemplateView):
     template_name = "cbase.html"
 
 class CustomerHome(ListView):
-    model=Employees
+    model=UserProfile
     template_name="cut_home.html"
     context_object_name = "books"
 
@@ -42,7 +41,6 @@ class CustomerRegistration(TemplateView):
             context["user_form"] = u_form
             context["profile_form"] = p_form
             return render(request,"cust_reg.html",context)
-
 
 
 

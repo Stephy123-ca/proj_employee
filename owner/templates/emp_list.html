@@ -1,0 +1,41 @@
+{%extends 'base.html'%}
+
+{%block body_block%}
+
+<div class="row mt-5">
+    <div class="col-1"></div>
+    <div class="col-10">
+
+        <table class="table">
+            <tr>
+
+                <td>Email</td>
+                <td>Phone</td>
+                <td>Address</td>
+                <td>Profile</td>
+            </tr>
+
+            {%for books in products %}
+
+            <tr>
+                <td>{{books.email}}</td>
+                <td>{{books.phone}}</td>
+                <td>{{books.address}}</td>
+                <td><img src="{{books.UserProfile.imag.url}}" alt="" height="100px" width="100px"></td>
+                <td>
+                 <a href="{%url 'Empdetail' books.id%}">view</a>
+
+               <a href="{%url 'editemp' books.id%}">Edit</a>
+                   <a href="{%url 'editemp' books.id%}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+
+
+        </table>
+    </div>
+    <div class="col-1"></div>
+</div>
+
+
+{%endblock%}
