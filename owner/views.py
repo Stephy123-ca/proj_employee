@@ -13,30 +13,6 @@ from owner.decorators import signin_required
 from Employee.forms import UserProfileForm
 from Employee.models import UserProfile
 
-
-#ListView rednder list all objects
-#TemplateView
-#DetailView
-#UpdateView
-#DeleteView
-
-# Create your views here.
-
-# books = [
-#     {"id": 1, "book_name": "randamoozham", "author": "mt", "price": 450, "copies": 50,
-#      "image": "https://upload.wikimedia.org/wikipedia/en/a/af/Randamoozham_30th_edition_cover.jpg"},
-#     {"id": 2, "book_name": "halfgf", "author": "chethan", "price": 500, "copies": 45,
-#      "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTHSXYG7XIi8PEuu8zqes8MWFgmKtRiv0gjmJJN402siII5uXE6"},
-#     {"id": 3, "book_name": "alchmist", "author": "paulo", "price": 550, "copies": 50,
-#      "image": "https://upload.wikimedia.org/wikipedia/en/a/af/Randamoozham_30th_edition_cover.jpg"},
-#     {"id": 4, "book_name": "indhuleka", "author": "chandhu", "price": 650, "copies": 20,
-#      "image": "https://upload.wikimedia.org/wikipedia/en/a/af/Randamoozham_30th_edition_cover.jpg"},
-#     {"id": 5, "book_name": "harry", "author": "jkr", "price": 650, "copies": 20,
-#      "image": "https://i.guim.co.uk/img/media/1d4b16d4c6703e9bec9174f1cadc278026de0647/0_75_1280_768/master/1280.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=d036928c5974e9e8bfd87be5dcf37dd7"
-# },
-#
-#
-# ]
 @method_decorator(signin_required,name="dispatch")
 class EmpRegistration(TemplateView):
     template_name = "emp_reg.html"
@@ -49,8 +25,8 @@ class EmpRegistration(TemplateView):
         context["profile_form"]=profile_form
         return context
     def post(self,request,*args,**kwargs):
-        u_form=UserRegistrationForm(request.POST)
-        p_form=UserProfileForm(request.POST)
+        u_form=UserRegistrationForm(request.POST,files=request.FILES)
+        p_form=UserProfileForm(request.POST,files=request.FILES)
         if u_form.is_valid() & p_form.is_valid():
             user=u_form.save()
             profile=p_form.save(commit=False)
@@ -131,15 +107,15 @@ class OwnerHome(TemplateView):
 #     return render(request, "emp_list.html", context)
 @method_decorator(signin_required,name="dispatch")
 class AllEmp(ListView):
-    model=UserProfile
+    model=User
     template_name="emp_list.html"
-    context_object_name = "products"
+    context_object_name = "employees"
 
 
 
 @method_decorator(signin_required,name="dispatch")
 class EmpDetail(DetailView):
-    model=UserProfile
+    model=User
     template_name="Emp_detail.html"
     context_object_name = "employee"
     pk_url_kwarg = "id"
@@ -147,7 +123,7 @@ class EmpDetail(DetailView):
 @method_decorator(signin_required,name="dispatch")
 class EmpUpdate(UpdateView):
     template_name="edit_emp.html"
-    model=UserProfile
+    model=User
     pk_url_kwarg = "id"
     success_url = reverse_lazy("listallemp")
 
@@ -209,20 +185,20 @@ def signout(requset,*args,**kwargs):
     return redirect("signin")
 
 
-class Registration(CreateView):
-    template_name = "emp_reg.html"
-    form_class = forms.UserRegistrationForm
-    work_class = forms.UserProfile
-
-    def post(self, request):
-        u_form = UserRegistrationForm(request.POST, files=request.FILES)
-        p_form = UserProfileForm(request.POST, files=request.FILES)
-        if u_form.is_valid() & p_form.is_valid():
-            user = u_form.save()
-            profile = p_form.save(commit=False)
-            profile.user = user
-            profile.save()
-            return redirect("listallemp")
+# class Registration(CreateView):
+#     template_name = "emp_reg.html"
+#     form_class = forms.UserRegistrationForm
+#     work_class = forms.UserProfile
+#
+#     def post(self, request):
+#         u_form = UserRegistrationForm(request.POST, files=request.FILES)
+#         p_form = UserProfileForm(request.POST, files=request.FILES)
+#         if u_form.is_valid() & p_form.is_valid():
+#             user = u_form.save()
+#             profile = p_form.save(commit=False)
+#             profile.user = user
+#             profile.save()
+#             return redirect("listallemp")
 
 
 # @method_decorator(signin_required,name="dispatch")

@@ -13,20 +13,23 @@
                 <td>Phone</td>
                 <td>Address</td>
                 <td>Profile</td>
+                  <td>Action</td>
             </tr>
 
-            {%for books in products %}
+            {%for emp in employees %}
 
             <tr>
-                <td>{{books.email}}</td>
-                <td>{{books.phone}}</td>
-                <td>{{books.address}}</td>
-                <td><img src="{{books.UserProfile.imag.url}}" alt="" height="100px" width="100px"></td>
+                <td>{{emp.email}}</td>
+                <td>{{emp.employee.phone}}</td>
+                <td>{{emp.employee.address}}</td>
+                {%if emp.employee.imag%}
+                <td><img src="{{emp.employee.imag.url}}" alt="" height="100px" width="100px"></td>
+                {%endif%}
                 <td>
-                 <a href="{%url 'Empdetail' books.id%}">view</a>
+                 <a href="{%url 'Empdetail' emp.id%}">view</a>
 
-               <a href="{%url 'editemp' books.id%}">Edit</a>
-                   <a href="{%url 'editemp' books.id%}">Delete</a>
+               <a href="{%url 'editemp' emp.id%}">Edit</a>
+                   <a href="{%url 'editemp' emp.id%}">Delete</a>
                 </td>
             </tr>
             {% endfor %}
