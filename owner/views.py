@@ -127,7 +127,7 @@ class EmpUpdate(UpdateView):
     pk_url_kwarg = "id"
     success_url = reverse_lazy("listallemp")
 
-    form_class=forms.EmployeeForm
+form_class=forms.EmployeeForm
 
 @method_decorator(signin_required,name="dispatch")
 class SignIn(TemplateView):
@@ -141,6 +141,7 @@ class SignIn(TemplateView):
 
         return context
     def post(self,request,*args,**kwargs):
+
         form=forms.SigninForm(request.POST)
         if form.is_valid():
             u_name=form.cleaned_data["username"]
