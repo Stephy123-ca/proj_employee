@@ -6,6 +6,8 @@ from owner.forms import UserRegistrationForm
 from owner.decorators import signin_required
 from Employee.forms import UserProfileForm
 from owner import  forms
+from owner.urls import path
+
 
 class Index(TemplateView):
     template_name = "cbase.html"

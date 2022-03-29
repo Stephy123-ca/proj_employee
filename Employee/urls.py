@@ -1,6 +1,7 @@
 from django.urls import path
 from Employee import views
 from django.views.generic import TemplateView
+from owner.views import OwnerHome
 
 
 urlpatterns=[
@@ -9,5 +10,6 @@ urlpatterns=[
     path("accounts/Employee/signin",views.CustomerRegistration.as_view(),name="custreg"),
     path("",views.Index.as_view(),name="cindex"),
     path("signin",views.SignIn.as_view(),name="signin"),
+
 
 ]

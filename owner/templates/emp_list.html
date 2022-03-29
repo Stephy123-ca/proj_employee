@@ -17,7 +17,7 @@
             </tr>
 
             {%for emp in employees %}
-            {%if !user.is_superuser%}
+            {%if  emp.employee.user%}
             <tr>
                 <td>{{emp.email}}</td>
                 <td>{{emp.employee.phone}}</td>
