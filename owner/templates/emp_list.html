@@ -17,14 +17,14 @@
             </tr>
 
             {%for emp in employees %}
-
+            {%if !user.is_superuser%}
             <tr>
                 <td>{{emp.email}}</td>
                 <td>{{emp.employee.phone}}</td>
                 <td>{{emp.employee.address}}</td>
                 {%if emp.employee.imag%}
                 <td><img src="{{emp.employee.imag.url}}" alt="" height="100px" width="100px"></td>
-                {%endif%}
+                {%endif%}{%endif%}
                 <td>
                  <a href="{%url 'Empdetail' emp.id%}">view</a>
 

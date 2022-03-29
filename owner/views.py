@@ -129,7 +129,7 @@ class EmpUpdate(UpdateView):
 
     form_class=forms.EmployeeForm
 
-
+@method_decorator(signin_required,name="dispatch")
 class SignIn(TemplateView):
     template_name = "index.html"
     context = {}
