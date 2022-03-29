@@ -131,7 +131,7 @@ class EmpUpdate(UpdateView):
 
 
 class SignIn(TemplateView):
-    template_name = "login.html"
+    template_name = "index.html"
     context = {}
 
     def get_context_data(self, **kwargs):
@@ -175,9 +175,9 @@ class SignIn(TemplateView):
 #                 login(request,user)
 #                 return redirect("ownerindex")
 #             else:
-#                 return render(request, "login.html", context)
+#                 return render(request, "index.html", context)
 #
-#     return render(request,"login.html",context)
+#     return render(request,"index.html",context)
 
 @signin_required
 def signout(requset,*args,**kwargs):
