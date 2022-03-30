@@ -8,7 +8,7 @@ urlpatterns=[
     path("view/<int:id>",views.EmpDetail.as_view(),name="Empdetail"),
     path("change/<int:id>",views.EmpUpdate.as_view(),name="editemp"),
     # path("signup",views.Registration.as_view(),name="registration"),
-    path("signin",views.SignIn.as_view(),name="signin"),
+
     path("accounts/signout",views.signout,name="signout"),
     path("add", views.EmpRegistration.as_view(), name="ownerreg"),
 

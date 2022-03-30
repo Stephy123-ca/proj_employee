@@ -129,38 +129,6 @@ class EmpUpdate(UpdateView):
 
 form_class=forms.EmployeeForm
 
-@method_decorator(signin_required,name="dispatch")
-class SignIn(TemplateView):
-    template_name = "index.html"
-    context = {}
-
-    def get_context_data(self, **kwargs):
-        context=super().get_context_data(**kwargs)
-        form=forms.SigninForm()
-        context["form"]=form
-
-        return context
-    def post(self,request,*args,**kwargs):
-
-        form=forms.SigninForm(request.POST)
-        if form.is_valid():
-            u_name=form.cleaned_data["username"]
-            pwd=form.cleaned_data["password"]
-            user=authenticate(request,username=u_name,password=pwd)
-            if user:
-                login(request,user)
-                if user.is_superuser:
-                    return redirect("ownerindex")
-                else:
-                    return redirect("customerhome")
-
-
-            else:
-                print("invalid")
-                self.context["form"]=form
-                return render(request,self.template_name,self.context)
-
-
 #
 # def signin(request):
 #     form=forms.SigninForm()

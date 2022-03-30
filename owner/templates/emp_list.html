@@ -24,18 +24,19 @@
                 <td>{{emp.employee.address}}</td>
                 {%if emp.employee.imag%}
                 <td><img src="{{emp.employee.imag.url}}" alt="" height="100px" width="100px"></td>
-                {%endif%}{%endif%}
+                {%endif%}
                 <td>
                  <a href="{%url 'Empdetail' emp.id%}">view</a>
 
                <a href="{%url 'editemp' emp.id%}">Edit</a>
                    <a href="{%url 'editemp' emp.id%}">Delete</a>
                 </td>
-            </tr>
+            </tr>  {%endif%}
             {% endfor %}
 
 
         </table>
+
     </div>
     <div class="col-1"></div>
 </div>
